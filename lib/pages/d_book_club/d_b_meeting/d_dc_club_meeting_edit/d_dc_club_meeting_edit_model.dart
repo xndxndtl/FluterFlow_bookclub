@@ -1,0 +1,31 @@
+import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import '/pages/d_book_club/d_b_meeting/d_dc_club_meeting_edit_form/d_dc_club_meeting_edit_form_widget.dart';
+import 'dart:ui';
+import 'd_dc_club_meeting_edit_widget.dart' show DDcClubMeetingEditWidget;
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+
+class DDcClubMeetingEditModel
+    extends FlutterFlowModel<DDcClubMeetingEditWidget> {
+  ///  State fields for stateful widgets in this page.
+
+  // Model for DDc_Club_Meeting_Edit_Form component.
+  late DDcClubMeetingEditFormModel dDcClubMeetingEditFormModel;
+
+  @override
+  void initState(BuildContext context) {
+    dDcClubMeetingEditFormModel =
+        createModel(context, () => DDcClubMeetingEditFormModel());
+  }
+
+  @override
+  void dispose() {
+    dDcClubMeetingEditFormModel.dispose();
+  }
+}

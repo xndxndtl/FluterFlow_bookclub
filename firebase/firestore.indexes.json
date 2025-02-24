@@ -1,0 +1,18 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "meeting",
+      "queryScope": "COLLECTION_GROUP",
+      "fields": [
+        {
+          "fieldPath": "meeting_join_user",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "meeting_date",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ]
+}
