@@ -208,6 +208,11 @@ class _DaCreateClubFormWidgetState extends State<DaCreateClubFormWidget> {
                         return;
                       }
                     }
+
+                    await widget!.clubDoc!.reference
+                        .update(createClubsRecordData(
+                      clubImage: _model.uploadedFileUrl,
+                    ));
                   },
                   text: '클럽 이미지 등록',
                   options: FFButtonOptions(

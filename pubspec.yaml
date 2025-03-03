@@ -38,7 +38,6 @@ dependencies:
   collection: 1.19.0
   crypto: 3.0.6
   csslib: 0.17.3
-  dio: 5.8.0
   dropdown_button2: 2.3.9
   easy_debounce: 2.0.1
   encrypt: 5.0.3

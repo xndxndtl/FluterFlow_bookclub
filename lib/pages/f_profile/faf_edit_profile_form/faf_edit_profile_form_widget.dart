@@ -108,10 +108,10 @@ class _FafEditProfileFormWidgetState extends State<FafEditProfileFormWidget> {
                             child: CachedNetworkImage(
                               fadeInDuration: Duration(milliseconds: 200),
                               fadeOutDuration: Duration(milliseconds: 200),
-                              imageUrl: valueOrDefault<String>(
-                                currentUserPhoto,
-                                'https://firebasestorage.googleapis.com/v0/b/bookclub-8e08d.appspot.com/o/users%2Fk7YCBbSDnnRIO5RSCSY36xaybKz1%2Fuploads%2F1736341865726269.jpg?alt=media&token=ba2602ea-3ea2-418a-ac5f-b28683bed08c',
-                              ),
+                              imageUrl: currentUserPhoto != null &&
+                                      currentUserPhoto != ''
+                                  ? currentUserPhoto
+                                  : 'https://firebasestorage.googleapis.com/v0/b/bookclub-8e08d.appspot.com/o/users%2Fk7YCBbSDnnRIO5RSCSY36xaybKz1%2Fuploads%2F1736341865726269.jpg?alt=media&token=ba2602ea-3ea2-418a-ac5f-b28683bed08c',
                               width: 300.0,
                               height: 200.0,
                               fit: BoxFit.cover,
@@ -183,6 +183,10 @@ class _FafEditProfileFormWidgetState extends State<FafEditProfileFormWidget> {
                       return;
                     }
                   }
+
+                  await currentUserReference!.update(createUsersRecordData(
+                    photoUrl: _model.uploadedFileUrl,
+                  ));
                 },
                 text: '이미지 등록',
                 options: FFButtonOptions(
@@ -349,18 +353,10 @@ class _FafEditProfileFormWidgetState extends State<FafEditProfileFormWidget> {
               padding: EdgeInsetsDirectional.fromSTEB(20.0, 24.0, 20.0, 0.0),
               child: FFButtonWidget(
                 onPressed: () async {
-                  if (_model.formKey.currentState == null ||
-                      !_model.formKey.currentState!.validate()) {
-                    return;
-                  }
                   // updateUserInfo
 
                   await currentUserReference!.update(createUsersRecordData(
                     displayName: _model.yourNameTextController.text,
-                    photoUrl: valueOrDefault<String>(
-                      _model.uploadedFileUrl,
-                      'https://images.unsplash.com/photo-1499887142886-791eca5918cd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxN3x8dXNlcnxlbnwwfHx8fDE2OTc4MjQ2MjZ8MA&ixlib=rb-4.0.3&q=80&w=400',
-                    ),
                     shortDescription: _model.myBioTextController.text,
                     lastActiveTime: getCurrentTimestamp,
                     email: '',

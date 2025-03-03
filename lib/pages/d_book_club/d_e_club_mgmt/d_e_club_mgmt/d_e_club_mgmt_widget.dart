@@ -152,7 +152,7 @@ class _DEClubMgmtWidgetState extends State<DEClubMgmtWidget> {
                                     fadeInDuration: Duration(milliseconds: 200),
                                     fadeOutDuration:
                                         Duration(milliseconds: 200),
-                                    imageUrl: widget!.clubinfo!.clubImage,
+                                    imageUrl: columnClubsRecord.clubImage,
                                     width: 300.0,
                                     height: 200.0,
                                     fit: BoxFit.cover,
@@ -229,6 +229,11 @@ class _DEClubMgmtWidgetState extends State<DEClubMgmtWidget> {
                               return;
                             }
                           }
+
+                          await columnClubsRecord.reference
+                              .update(createClubsRecordData(
+                            clubImage: _model.uploadedFileUrl,
+                          ));
                         },
                         text: '클럽 이미지 변경',
                         options: FFButtonOptions(

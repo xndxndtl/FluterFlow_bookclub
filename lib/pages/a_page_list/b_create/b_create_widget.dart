@@ -1,4 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -6,6 +7,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:math';
 import 'dart:ui';
 import '/index.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -197,7 +199,7 @@ class _BCreateWidgetState extends State<BCreateWidget>
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 8.0, 0.0, 12.0),
                                       child: Text(
-                                        '구글, 카카오 계정으로 \n북탠다드 북클럽을 시작하세요.',
+                                        '소셜 계정으로 \n북탠다드 북클럽을 시작하세요.',
                                         textAlign: TextAlign.center,
                                         style: FlutterFlowTheme.of(context)
                                             .labelLarge
@@ -213,6 +215,7 @@ class _BCreateWidgetState extends State<BCreateWidget>
                                           0.0, 0.0, 0.0, 16.0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
+                                          Function() _navigate = () {};
                                           GoRouter.of(context)
                                               .prepareAuthEvent();
                                           final user = await authManager
@@ -220,10 +223,22 @@ class _BCreateWidgetState extends State<BCreateWidget>
                                           if (user == null) {
                                             return;
                                           }
-
-                                          context.goNamedAuth(
+                                          _navigate = () => context.goNamedAuth(
                                               CHomeWidget.routeName,
                                               context.mounted);
+                                          if (!(currentUserPhoto == null ||
+                                              currentUserPhoto == '')) {
+                                            _navigate();
+                                            return;
+                                          }
+
+                                          await currentUserReference!
+                                              .update(createUsersRecordData(
+                                            photoUrl:
+                                                'https://firebasestorage.googleapis.com/v0/b/bookclub-8e08d.appspot.com/o/users%2Fk7YCBbSDnnRIO5RSCSY36xaybKz1%2Fuploads%2F1736341865726269.jpg?alt=media&token=ba2602ea-3ea2-418a-ac5f-b28683bed08c',
+                                          ));
+
+                                          _navigate();
                                         },
                                         text: 'Continue with Google',
                                         icon: FaIcon(
@@ -251,61 +266,6 @@ class _BCreateWidgetState extends State<BCreateWidget>
                                                         .primaryText,
                                                 letterSpacing: 0.0,
                                               ),
-                                          elevation: 0.0,
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .alternate,
-                                            width: 2.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                          hoverColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .primaryBackground,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 16.0),
-                                      child: FFButtonWidget(
-                                        onPressed: () async {
-                                          GoRouter.of(context)
-                                              .prepareAuthEvent();
-                                          final user = await authManager
-                                              .signInAnonymously(context);
-                                          if (user == null) {
-                                            return;
-                                          }
-
-                                          context.goNamedAuth(
-                                              CHomeWidget.routeName,
-                                              context.mounted);
-                                        },
-                                        text: 'Continue with kakao',
-                                        icon: FaIcon(
-                                          FontAwesomeIcons.solidComment,
-                                          color: Colors.black,
-                                          size: 20.0,
-                                        ),
-                                        options: FFButtonOptions(
-                                          width: double.infinity,
-                                          height: 44.0,
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
-                                          iconPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
-                                          color: Color(0xFFFEE500),
-                                          textStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleSmall
-                                                  .override(
-                                                    fontFamily: 'Inter Tight',
-                                                    color: Color(0xD8000000),
-                                                    letterSpacing: 0.0,
-                                                  ),
                                           elevation: 0.0,
                                           borderSide: BorderSide(
                                             color: FlutterFlowTheme.of(context)
